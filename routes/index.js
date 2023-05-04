@@ -1,21 +1,10 @@
 var express = require("express");
+const MessageModel = require("../models/message");
 var router = express.Router();
 
-const messages = [
-    {
-        text: "Hi there!",
-        user: "Amando",
-        added: new Date(),
-    },
-    {
-        text: "Hello World!",
-        user: "Charles",
-        added: new Date(),
-    },
-];
-
 /* GET home page. */
-router.get("/", function (req, res, next) {
+router.get("/", async function (req, res, next) {
+    const messages = await MessageModel.find().sort({ added_at: -1 }).exec();
     res.render("index", { title: "Message Board", messages });
 });
 
@@ -23,11 +12,11 @@ router.get("/new", function (req, res, next) {
     res.render("form");
 });
 
-router.post("/new", function (req, res, next) {
-    messages.push({
+router.post("/new", async function (req, res, next) {
+    await MessageModel.create({
         text: req.body.message,
         user: req.body.user,
-        added: new Date(),
+        added_at: new Date(),
     });
 
     res.redirect("/");
