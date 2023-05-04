@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+        <link rel="stylesheet" href="/stylesheets/style.css" />
+    </head>
+    <body>
+        <h1><%= title %></h1>
+        <h3><a href="/new">Write new message</a></h3>
+        <table>
+            <thead>
+                <th>Message</th>
+                <th>User</th>
+                <th>Sent</th>
+            </thead>
+            <tbody>
+                <% messages.forEach(element => { %>
+                <tr>
+                    <td><%= element.text %></td>
+                    <td><%= element.user %></td>
+                    <td><%= element.added %></td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </body>
+</html>
